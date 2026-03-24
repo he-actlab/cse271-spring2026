@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSE 271 — Navigating the Academic Job Market — UCSD Spring 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --serif: 'Source Serif 4', Georgia, serif;
+      --sans: 'IBM Plex Sans', system-ui, sans-serif;
+      --mono: 'IBM Plex Mono', monospace;
+      --text: #1a1a1a;
+      --text-muted: #555;
+      --text-faint: #888;
+      --border: #d8d5ce;
+      --border-light: #e8e5de;
+      --bg: #faf9f6;
+      --bg-surface: #f2f0eb;
+      --bg-card: #fff;
+      --accent: #7d241f;
+      --accent-light: #f6e8e6;
+      --amber: #7a4f00;
+      --amber-light: #fef3e2;
+      --green: #1e5c2e;
+      --green-light: #eaf5ec;
+      --gray-light: #f0eeea;
+    }
+    html { font-size: 15px; }
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(125, 36, 31, 0.08), transparent 30%),
+        linear-gradient(180deg, #fcfbf8 0%, #f7f4ee 100%);
+      line-height: 1.65;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .page { max-width: 1080px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+    .site-header { border-bottom: 1px solid var(--border); padding: 2rem 0 0; }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .course-id {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-faint);
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+    .course-title {
+      font-family: var(--serif);
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.15;
+      max-width: 17ch;
+    }
+    .course-meta { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+    .course-meta span { margin-right: 1.2rem; }
+    .ucsd-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .nav { display: flex; flex-wrap: wrap; }
+    .nav-btn {
+      font-family: var(--sans);
+      font-size: 13.5px;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 10px 16px 10px 0;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .nav-btn:hover { color: var(--text); }
+    .nav-btn.active {
+      color: var(--text);
+      border-bottom: 2px solid var(--text);
+      font-weight: 500;
+    }
+
+    .tab { display: none; padding-top: 1.75rem; }
+    .tab.active { display: block; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 780px) {
+      .page { padding: 0 1.1rem 3rem; }
+      .two-col { grid-template-columns: 1fr; }
+      .course-title { font-size: 26px; }
+    }
+
+    .sidebar { display: flex; flex-direction: column; gap: 12px; }
+    .s-card {
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--bg-card);
+      box-shadow: 0 10px 30px rgba(40, 28, 12, 0.04);
+    }
+    .s-card-head {
+      background: var(--bg-surface);
+      padding: 6px 14px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .s-card-body { padding: 12px 14px; font-size: 13px; }
+    .s-card-body p { margin-bottom: 7px; }
+    .s-card-body p:last-child { margin-bottom: 0; }
+    .kv {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3px 14px;
+      font-size: 13px;
+    }
+    .kv .k { color: var(--text-muted); white-space: nowrap; }
+
+    .prose p { font-size: 14px; margin-bottom: 1rem; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose strong { font-weight: 500; }
+    .prose ul { font-size: 14px; margin: 0.5rem 0 1rem 1.25rem; }
+    .prose ul li { margin-bottom: 0.3rem; }
+    .notice {
+      background: var(--bg-surface);
+      border-left: 3px solid var(--border);
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-radius: 0 4px 4px 0;
+      margin: 1rem 0;
+    }
+    .disclaimer {
+      background: var(--amber-light);
+      border-left: 3px solid #d4a74a;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--amber);
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 1.25rem;
+    }
+
+    .sec-title {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .sched-wrap { overflow-x: auto; }
+    table.sched { width: 100%; border-collapse: collapse; font-size: 13px; background: rgba(255, 255, 255, 0.78); }
+    table.sched th {
+      text-align: left;
+      padding: 6px 10px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    table.sched td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    table.sched tr:last-child td { border-bottom: none; }
+    table.sched tr.part-row td {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 500;
+      font-size: 13px;
+      padding: 8px 12px;
+    }
+    table.sched tr.part-row td a { color: #f5d6d2; }
+    table.sched tr.part-row td a:hover { color: #fff; }
+    .lec-num { font-family: var(--mono); font-size: 12px; color: var(--text-faint); white-space: nowrap; }
+    .topic-main { font-size: 13px; }
+    .topic-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .reading { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    .reading strong { color: var(--text); }
+
+    table.syl { width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; background: rgba(255, 255, 255, 0.78); }
+    table.syl th {
+      text-align: left;
+      padding: 7px 12px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+    }
+    table.syl td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 13px;
+      vertical-align: top;
+    }
+    table.syl tr:last-child td { border-bottom: none; }
+
+    .hw-list { display: flex; flex-direction: column; gap: 10px; }
+    .hw-item {
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-card);
+      gap: 1rem;
+      box-shadow: 0 10px 30px rgba(40, 28, 12, 0.04);
+    }
+    .hw-title { font-weight: 500; font-size: 14px; }
+    .hw-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; font-family: var(--mono); }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-family: var(--mono);
+      padding: 2px 8px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .badge-out { background: var(--green-light); color: var(--green); }
+    .badge-hol { background: var(--gray-light); color: var(--text-muted); }
+
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .staff-card {
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 16px;
+      background: var(--bg-card);
+      font-size: 13px;
+      box-shadow: 0 10px 30px rgba(40, 28, 12, 0.04);
+    }
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      font-family: var(--mono);
+    }
+    .staff-name { font-weight: 500; font-size: 14px; margin-bottom: 2px; }
+    .staff-role { color: var(--text-muted); font-size: 12px; margin-bottom: 8px; }
+    .staff-detail { color: var(--text-muted); font-size: 12px; margin-bottom: 3px; }
+
+    table.oh { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 0.75rem; background: rgba(255, 255, 255, 0.78); }
+    table.oh th {
+      text-align: left;
+      padding: 6px 10px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+    }
+    table.oh td { padding: 7px 10px; border-bottom: 1px solid var(--border-light); }
+    table.oh tr:last-child td { border-bottom: none; }
+
+    .site-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-light);
+      font-size: 12px;
+      color: var(--text-faint);
+      font-family: var(--mono);
+    }
+    .cc-note { margin-top: 5px; font-size: 11px; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header class="site-header">
+    <div class="header-top">
+      <div>
+        <div class="course-id">CSE 271 &nbsp;/&nbsp; Spring 2026</div>
+        <h1 class="course-title">Navigating the Academic Job Market</h1>
+        <div class="course-meta">
+          <span>MW 2:00 PM PT</span>
+          <span>CSE 4140</span>
+          <span>UC San Diego</span>
+        </div>
+      </div>
+      <!-- <div class="ucsd-badge">Badge in Top Right</div> -->
+    </div>
+    <nav class="nav">
+      <button class="nav-btn active" onclick="showTab('overview', this)">Overview</button>
+      <button class="nav-btn" onclick="showTab('schedule', this)">Schedule</button>
+      <button class="nav-btn" onclick="showTab('assignments', this)">Assignments</button>
+      <button class="nav-btn" onclick="showTab('participation', this)">Participation</button>
+      <button class="nav-btn" onclick="showTab('staff', this)">Staff &amp; Resources</button>
+    </nav>
+  </header>
+
+  <section id="overview" class="tab active">
+    <div class="two-col">
+      <div>
+        <div class="prose">
+          <p>
+            The course offers a thorough exploration of the academic job market, specifically designed for those aspiring to secure assistant professor positions at universities.
+            Whether you are targeting a research-oriented role or a teaching-focused position, this course will provide you with the essential tools, strategies, and insights needed to succeed.
+            You will learn how to craft compelling application materials, including your CV and research/teaching/diversity statement.
+            Throughout this course, you'll receive personalized feedback, engage in mock interviews, and refine your presentation skills.
+          </p>
+          <p>
+            In addition to mastering the application process, this course gives you a realistic understanding of what it means to be a professor.
+            You will explore topics such as work-life balance, tenure expectations, and navigating departmental dynamics. 
+            By the end of the course, you will be well-prepared to present yourself as a strong candidate and confidently embark on your academic career.
+          </p>
+        </div>
+        <!-- <div class="notice">
+          Can put a notice here.
+        </div> -->
+        <br>
+        <div class="prose">
+          <p>
+            <strong>Course format:</strong> 
+            The course will consist of lectures and student activities. 
+            Some lectures will be from new faculty members, professors, and department chairs. 
+            You will have the opportunity to ask questions and gain valuable insights. 
+            Additionally, there will be dedicated sessions where you can work on your own application materials, receiving feedback and guidance from instructors and peers.
+          </p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="s-card">
+          <div class="s-card-head">Key Dates</div>
+          <div class="s-card-body">
+            <div class="kv">
+              <span class="k">No class</span><span>Monday, May 25</span>
+            </div>
+          </div>
+        </div>
+        <div class="s-card">
+          <div class="s-card-head">Grade breakdown</div>
+          <div class="s-card-body">
+            <div class="kv">
+              <span class="k">Homework &amp; preparation</span><span>50%</span>
+              <span class="k">Attendance</span><span>30%</span>
+              <span class="k">Active participation</span><span>20%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="schedule" class="tab">
+    <div class="sched-wrap">
+      <table class="sched">
+        <thead>
+          <tr>
+            <th style="width: 140px;">Date</th>
+            <th>Topic</th>
+            <th style="width: 280px;">Preparation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>March 30th</td>
+            <td><div class="topic-main">Introductions</div></td>
+            <td class="reading">None</td>
+          </tr>
+          <tr>
+            <td>April 1st</td>
+            <td><div class="topic-main">Overview of timeline and materials</div></td>
+            <td class="reading"><a href="https://cogsci.ucmerced.edu/sites/cogsci.ucmerced.edu/files/documents/the_academic_job_market.pdf">The Academic Job Market: An Intro For Everyone</a></td>
+          </tr>
+          <tr>
+            <td>April 6th</td>
+            <td><div class="topic-main">Panel: the job hunt</div></td>
+            <td class="reading">None</td>
+          </tr>
+          <tr>
+            <td>April 8th</td>
+            <td><div class="topic-main">Panel: types of universities and positions</div></td>
+            <td class="reading"><a href="https://medium.com/bucknell-hci/the-jobs-i-didnt-see-my-misconceptions-of-the-academic-job-market-9cb98b057422">The Jobs I Didn&rsquo;t See: My Misconceptions of the Academic Job Market</a></td>
+          </tr>
+
+          <tr>
+            <td>April 13th</td>
+            <td><div class="topic-main">Research statements</div></td>
+            <td class="reading"><a href="https://careers.uw.edu/wp-content/uploads/sites/25/2016/06/Research-Statements.pdf">Research Statements - UW</a></td>
+          </tr>
+          <tr>
+            <td>April 15th</td>
+            <td>
+              <div class="topic-main">Peer review</div>
+              <div class="topic-sub">Bring your research statement draft.</div>
+            </td>
+            <td class="reading">Bring a working draft</td>
+          </tr>
+          <tr>
+            <td>April 20th</td>
+            <td><div class="topic-main">Teaching statements</div></td>
+            <td class="reading"><a href="https://writingcenter.unc.edu/tips-and-tools/teaching-statements/">Teaching Statements - UNC</a></td>
+          </tr>
+          <tr>
+            <td>April 22nd</td>
+            <td>
+              <div class="topic-main">Peer review</div>
+              <div class="topic-sub">Bring your teaching statement draft.</div>
+            </td>
+            <td class="reading">Bring a working draft</td>
+          </tr>
+          <tr>
+            <td>April 27th</td>
+            <td><div class="topic-main">Other materials: CV and cover letter</div></td>
+            <td class="reading">None</td>
+          </tr>
+          <tr>
+            <td>April 29th</td>
+            <td><div class="topic-main">Other materials: diversity statements and teaching portfolios</div></td>
+            <td class="reading"><a href="https://career.ucsf.edu/gsp/faculty-samples#Understand-the-application-materials">Application Materials for Faculty Positions</a></td>
+          </tr>
+
+          <tr>
+            <td>May 4th</td>
+            <td><div class="topic-main">Mock interviews</div></td>
+            <td class="reading"><a href="https://rowanzellers.com/blog/rowan-job-search/">Reflections on the CS Academic and Industry Job Markets</a></td>
+          </tr>
+          <tr>
+            <td>May 6th</td>
+            <td><div class="topic-main">Chair interview</div></td>
+            <td class="reading">None</td>
+          </tr>
+          <tr>
+            <td>May 11th</td>
+            <td><div class="topic-main">Job talks</div></td>
+            <td class="reading"><a href="https://niklaselmqvist.medium.com/talking-the-talk-c5e1fd7a5785">Talking the Talk</a> and <a href="https://pages.cs.wisc.edu/~markhill/conference-talk.html">Oral Presentation Advice</a></td>
+          </tr>
+          <tr>
+            <td>May 13th</td>
+            <td>
+              <div class="topic-main">Practice job talk</div>
+              <div class="topic-sub">Bring the first five minutes of your talk.</div>
+            </td>
+            <td class="reading">Prepare a short presentation segment</td>
+          </tr>
+          <tr>
+            <td>May 18th</td>
+            <td><div class="topic-main">Job talk deep dive</div></td>
+            <td class="reading">One volunteer brings a full talk</td>
+          </tr>
+
+          <tr>
+            <td>May 20th</td>
+            <td><div class="topic-main">Funding and proposal writing</div></td>
+            <td class="reading">None</td>
+          </tr>
+          <tr>
+            <td>May 27th</td>
+            <td><div class="topic-main">Ethics and survival skills</div></td>
+            <td class="reading">None</td>
+          </tr>
+          <tr>
+            <td>June 1st</td>
+            <td>
+              <div class="topic-main">TBD</div>
+              <div class="topic-sub">TBD.</div>
+            </td>
+            <td class="reading">None</td>
+          </tr>
+          <tr>
+            <td>June 3rd</td>
+            <td>
+              <div class="topic-main">Student choice and closing social event</div>
+              <div class="topic-sub">Wrap-up topics can be adjusted based on class interest.</div>
+            </td>
+            <td class="reading">None</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="assignments" class="tab">
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:1rem;">Bring paper copies when a workshop session calls for them, and submit electronic versions through Canvas when requested.</p>
+
+    <div class="sec-title">Core assignments</div>
+    <div class="hw-list">
+      <div class="hw-item">
+        <div>
+          <div class="hw-title">Assignment 1 — Research statement</div>
+          <div class="hw-meta">Target length depends on experience level · Due date TBD</div>
+        </div>
+        <!-- <span class="badge badge-hol">Draft in progress</span> -->
+      </div>
+      <div class="hw-item">
+        <div>
+          <div class="hw-title">Assignment 2 — Teaching statement</div>
+          <div class="hw-meta">Analysis or draft submission · Due date TBD</div>
+        </div>
+        <!-- <span class="badge badge-hol">Draft in progress</span> -->
+      </div>
+      <div class="hw-item">
+        <div>
+          <div class="hw-title">Assignment 3 — Job talk</div>
+          <div class="hw-meta">Presentation or critique assignment · Due date TBD</div>
+        </div>
+        <!-- <span class="badge badge-hol">Workshop item</span> -->
+      </div>
+      <div class="hw-item">
+        <div>
+          <div class="hw-title">Final project</div>
+          <div class="hw-meta">Independent synthesis project · Due date TBD</div>
+        </div>
+        <!-- <span class="badge badge-out">Capstone</span> -->
+      </div>
+    </div>
+
+    <div class="sec-title" style="margin-top:1.75rem;">Assignment details</div>
+    <table class="syl">
+      <thead>
+        <tr>
+          <th style="width: 28%;">Assignment</th>
+          <th>Expectation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Research statement</td>
+          <td>MS students without research experience should analyze an existing statement and identify strengths and weaknesses. Students with research experience should submit a draft research statement, with the expected length scaled to career stage and target institution type.</td>
+        </tr>
+        <tr>
+          <td>Teaching statement</td>
+          <td>Students without teaching experience may complete a structured analysis of a faculty teaching statement. Students with teaching experience should submit a 1&ndash;2 page teaching statement draft.</td>
+        </tr>
+        <tr>
+          <td>Job talk assignment</td>
+          <td>PhD students and MS students with research experience prepare a short job talk and submit slides. Other students complete a written critique of a sample academic job talk, focusing on content, structure, delivery, and recommendations.</td>
+        </tr>
+        <tr>
+          <td>Final project</td>
+          <td>Choose a topic such as statement analysis, teaching philosophy development, job-market research, faculty mentoring, or academic writing and publishing. Deliverables include a short proposal, a final report, and a presentation.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="participation" class="tab">
+    <div class="two-col">
+      <div>
+        <div class="sec-title">Participation and attendance</div>
+        <div class="prose">
+          <p>
+            Active participation is a central part of this course. 
+            The goal is not only to understand the academic job market, but also to practice the kinds of critical reading, discussion, and feedback that you will need throughout the application process.
+          </p>
+          <p>
+            You are expected to arrive prepared, contribute thoughtfully to discussions, and engage seriously with peer review days. 
+            Class time is best spent when everyone brings drafts, asks concrete questions, and gives feedback that is candid and constructive.
+          </p>
+        </div>
+
+        <div class="sec-title" style="margin-top:1.5rem;">How to participate well</div>
+        <div class="prose">
+          <ul>
+            <li><strong>Come prepared:</strong> read assigned material before class and think about what was persuasive, confusing, or surprising.</li>
+            <li><strong>Listen actively:</strong> pay attention to both content and framing, especially during guest perspectives and peer review.</li>
+            <li><strong>Ask useful questions:</strong> good questions move the conversation forward and help others sharpen their thinking.</li>
+            <li><strong>Offer constructive feedback:</strong> connect comments to audience, goals, and clarity rather than just preference.</li>
+            <li><strong>Be respectful:</strong> treat classmates&rsquo; drafts and experiences with professionalism and care.</li>
+          </ul>
+        </div>
+
+        <div class="sec-title" style="margin-top:1.5rem;">Absence policy</div>
+        <div class="prose">
+          <p>Students receive <strong>one free absence</strong>. Missing more than one class should be cleared with the instructor or TA in advance when possible.</p>
+          <p>Missing a class also means missing the participation credit associated with that meeting.</p>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="s-card">
+          <div class="s-card-head">Best practices</div>
+          <div class="s-card-body">
+            <p>Bring drafts when requested.</p>
+            <p>Take notes during peer review and guest sessions.</p>
+            <p>Use feedback sessions to refine material for real applications.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="staff" class="tab">
+    <div class="sec-title">Course staff</div>
+    <div class="staff-grid">
+      <div class="staff-card">
+        <div class="avatar">HE</div>
+        <div class="staff-name">Hadi Esmaeilzadeh</div>
+        <div class="staff-role">Instructor</div>
+        <div class="staff-detail">Contact: hadi [at] ucsd [dot] edu</div>
+        <div class="staff-detail">Office hours: by appointment</div>
+      </div>
+      <div class="staff-card">
+        <div class="avatar">CP</div>
+        <div class="staff-name">Christopher Priebe</div>
+        <div class="staff-role">Teaching Assistant</div>
+        <div class="staff-detail">Contact: cpriebe [at] ucsd [dot] edu</div>
+        <div class="staff-detail">Office hours: by appointment</div>
+      </div>
+    </div>
+    </table>
+
+    <div class="sec-title" style="margin-top:1.75rem;">Faculty statements</div>
+    <div class="prose">
+      <p>These example materials are password-protected. Contact Christopher Priebe for access information, and please keep the shared documents confidential.</p>
+    </div>
+    <div class="hw-list" style="margin-top:0.75rem;">
+      <div class="hw-item">
+        <div>
+          <div class="hw-title"><a href="faculty_statements/research_statements.zip">Research statements</a></div>
+          <div class="hw-meta">Sample materials from faculty</div>
+        </div>
+        <span class="badge badge-out">Resource</span>
+      </div>
+      <div class="hw-item">
+        <div>
+          <div class="hw-title"><a href="faculty_statements/teaching_statements.zip">Teaching statements</a></div>
+          <div class="hw-meta">Sample materials from faculty</div>
+        </div>
+        <span class="badge badge-out">Resource</span>
+      </div>
+      <div class="hw-item">
+        <div>
+          <div class="hw-title"><a href="faculty_statements/diversity_statements.zip">Diversity statements</a></div>
+          <div class="hw-meta">Sample materials from faculty</div>
+        </div>
+        <span class="badge badge-out">Resource</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div>CSE 271 &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; UC San Diego</div>
+    <!-- <div class="cc-note"note below other note></div> -->
+  </footer>
+
+</div>
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach((button) => button.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
